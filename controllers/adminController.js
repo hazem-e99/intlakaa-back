@@ -1,8 +1,8 @@
-import jwt from 'jsonwebtoken';
-import crypto from 'crypto';
-import Admin from '../models/Admin.js';
-import AdminInvite from '../models/AdminInvite.js';
-import sendEmail from '../utils/sendEmail.js';
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const Admin = require('../models/Admin');
+const AdminInvite = require('../models/AdminInvite');
+const sendEmail = require('../utils/sendEmail');
 
 // Generate JWT Token
 const generateToken = (id) => {
@@ -14,7 +14,7 @@ const generateToken = (id) => {
 // @desc    Login admin
 // @route   POST /api/auth/login
 // @access  Public
-export const login = async (req, res, next) => {
+const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
@@ -75,7 +75,7 @@ export const login = async (req, res, next) => {
 // @desc    Get current logged in admin
 // @route   GET /api/auth/me
 // @access  Private
-export const getCurrentAdmin = async (req, res, next) => {
+const getCurrentAdmin = async (req, res, next) => {
   try {
     const admin = await Admin.findById(req.admin.id).select('-password -inviteToken');
 
@@ -103,7 +103,7 @@ export const getCurrentAdmin = async (req, res, next) => {
 // @desc    Send admin invite
 // @route   POST /api/auth/send-invite
 // @access  Public (or can be protected based on requirements)
-export const sendInvite = async (req, res, next) => {
+const sendInvite = async (req, res, next) => {
   try {
     const { email } = req.body;
 
@@ -455,7 +455,7 @@ export const sendInvite = async (req, res, next) => {
 // @desc    Invite new admin
 // @route   POST /api/admins/invite
 // @access  Private (Owner only)
-export const inviteAdmin = async (req, res, next) => {
+const inviteAdmin = async (req, res, next) => {
   try {
     const { name, email, role } = req.body;
 
@@ -554,7 +554,7 @@ export const inviteAdmin = async (req, res, next) => {
 // @desc    Verify invite token
 // @route   GET /api/auth/verify-invite
 // @access  Public
-export const verifyInvite = async (req, res, next) => {
+const verifyInvite = async (req, res, next) => {
   try {
     const { token } = req.query;
 
@@ -594,7 +594,7 @@ export const verifyInvite = async (req, res, next) => {
 // @desc    Accept invite and set password
 // @route   POST /api/auth/accept-invite
 // @access  Public
-export const acceptInvite = async (req, res, next) => {
+const acceptInvite = async (req, res, next) => {
   try {
     const { token, password, name } = req.body;
 
@@ -672,7 +672,7 @@ export const acceptInvite = async (req, res, next) => {
 // @desc    Get all admins (including pending invites)
 // @route   GET /api/admins
 // @access  Private (Owner only)
-export const getAdmins = async (req, res, next) => {
+const getAdmins = async (req, res, next) => {
   try {
     // Get accepted admins
     const admins = await Admin.find().select('-password -inviteToken');
@@ -728,7 +728,7 @@ export const getAdmins = async (req, res, next) => {
 // @desc    Delete admin or pending invite
 // @route   DELETE /api/admins/:id
 // @access  Private (Owner only)
-export const deleteAdmin = async (req, res, next) => {
+const deleteAdmin = async (req, res, next) => {
   try {
     console.log('🗑️ Delete request for ID:', req.params.id);
     
@@ -780,7 +780,7 @@ export const deleteAdmin = async (req, res, next) => {
 // @desc    Update admin
 // @route   PUT /api/admins/:id
 // @access  Private (Owner only)
-export const updateAdmin = async (req, res, next) => {
+const updateAdmin = async (req, res, next) => {
   try {
     console.log('🔄 Update admin request received');
     console.log('📋 Admin ID:', req.params.id);
@@ -831,4 +831,16 @@ export const updateAdmin = async (req, res, next) => {
     console.error('❌ Error updating admin:', error);
     next(error);
   }
+};
+
+module.exports = {
+  login,
+  getCurrentAdmin,
+  sendInvite,
+  inviteAdmin,
+  verifyInvite,
+  acceptInvite,
+  getAdmins,
+  deleteAdmin,
+  updateAdmin,
 };

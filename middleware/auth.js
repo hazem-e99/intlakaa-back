@@ -1,7 +1,7 @@
-import jwt from 'jsonwebtoken';
-import Admin from '../models/Admin.js';
+const jwt = require('jsonwebtoken');
+const Admin = require('../models/Admin');
 
-export const protect = async (req, res, next) => {
+const protect = async (req, res, next) => {
   try {
     let token;
 
@@ -48,7 +48,7 @@ export const protect = async (req, res, next) => {
 };
 
 // Middleware to check if admin is owner
-export const ownerOnly = (req, res, next) => {
+const ownerOnly = (req, res, next) => {
   if (req.admin && req.admin.role === 'owner') {
     next();
   } else {
@@ -58,3 +58,5 @@ export const ownerOnly = (req, res, next) => {
     });
   }
 };
+
+module.exports = { protect, ownerOnly };

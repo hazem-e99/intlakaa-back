@@ -1,7 +1,7 @@
-import bcrypt from 'bcrypt';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import readline from 'readline';
+const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const readline = require('readline');
 
 dotenv.config();
 

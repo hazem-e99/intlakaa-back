@@ -1,13 +1,13 @@
-import express from 'express';
-import {
+const express = require('express');
+const {
   inviteAdmin,
   verifyInvite,
   acceptInvite,
   getAdmins,
   updateAdmin,
   deleteAdmin,
-} from '../controllers/adminController.js';
-import { protect, ownerOnly } from '../middleware/auth.js';
+} = require('../controllers/adminController');
+const { protect, ownerOnly } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -22,4 +22,4 @@ router.put('/:id', protect, ownerOnly, updateAdmin);
 router.put('/:id/role', protect, ownerOnly, updateAdmin); // Handle /role endpoint
 router.delete('/:id', protect, ownerOnly, deleteAdmin);
 
-export default router;
+module.exports = router;

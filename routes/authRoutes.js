@@ -1,6 +1,6 @@
-import express from 'express';
-import { login, getCurrentAdmin, sendInvite, acceptInvite, verifyInvite } from '../controllers/adminController.js';
-import { protect } from '../middleware/auth.js';
+const express = require('express');
+const { login, getCurrentAdmin, sendInvite, acceptInvite, verifyInvite } = require('../controllers/adminController');
+const { protect } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -11,4 +11,4 @@ router.post('/send-invite', sendInvite);
 router.get('/verify-invite', verifyInvite);
 router.post('/accept-invite', acceptInvite);
 
-export default router;
+module.exports = router;

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const adminInviteSchema = new mongoose.Schema({
   email: {
@@ -35,4 +35,4 @@ adminInviteSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
 const AdminInvite = mongoose.model('AdminInvite', adminInviteSchema);
 
-export default AdminInvite;
+module.exports = AdminInvite;

@@ -1,8 +1,8 @@
-import express from 'express';
-import cors from 'cors';
-import authRoutes from './routes/authRoutes.js';
-import adminRoutes from './routes/adminRoutes.js';
-import requestRoutes from './routes/requestRoutes.js';
+const express = require('express');
+const cors = require('cors');
+const authRoutes = require('./routes/authRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const requestRoutes = require('./routes/requestRoutes');
 
 const app = express();
 
@@ -82,4 +82,4 @@ app.use((err, req, res, next) => {
   });
 });
 
-export default app;
+module.exports = app;
