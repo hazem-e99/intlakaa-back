@@ -1,32 +1,36 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const requestSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, 'Name is required'],
-    trim: true,
+const requestSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "Name is required"],
+      trim: true,
+    },
+    phone: {
+      type: String,
+      required: [true, "Phone number is required"],
+      trim: true,
+    },
+    store_url: {
+      type: String,
+      required: [true, "Store URL is required"],
+      trim: true,
+    },
+    monthly_salary: {
+      type: String,
+      required: [true, "Monthly sales is required"],
+      trim: true,
+    },
+    status: {
+      type: String,
+      enum: ["pending", "contacted", "completed"],
+      default: "pending",
+    },
   },
-  phone: {
-    type: String,
-    required: [true, 'Phone is required'],
-    trim: true,
-  },
-  store_url: {
-    type: String,
-    required: [true, 'Store URL is required'],
-    trim: true,
-  },
-  monthly_salary: {
-    type: String, // Changed from Number to String to accept any text
-    required: [true, 'Monthly salary is required'],
-    trim: true,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
-const Request = mongoose.model('Request', requestSchema);
-
-module.exports = Request;
+module.exports = mongoose.model("Request", requestSchema);

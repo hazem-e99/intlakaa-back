@@ -1,10 +1,10 @@
-const Request = require('../models/Request');
-const sendEmail = require('../utils/sendEmail');
+const Request = require("../models/Request");
+const sendEmail = require("../utils/sendEmail");
 
 // @desc    Create new request
 // @route   POST /api/requests
 // @access  Public
-const createRequest = async (req, res, next) => {
+exports.createRequest = async (req, res, next) => {
   try {
     console.log('📝 Received request data:', req.body);
     console.log('📋 Field details:', {
@@ -338,7 +338,7 @@ const createRequest = async (req, res, next) => {
 // @desc    Get all requests
 // @route   GET /api/requests
 // @access  Private (Admin)
-const getRequests = async (req, res, next) => {
+exports.getRequests = async (req, res, next) => {
   try {
     const requests = await Request.find().sort({ createdAt: -1 });
 
@@ -355,7 +355,7 @@ const getRequests = async (req, res, next) => {
 // @desc    Get single request
 // @route   GET /api/requests/:id
 // @access  Private (Admin)
-const getRequest = async (req, res, next) => {
+exports.getRequest = async (req, res, next) => {
   try {
     const request = await Request.findById(req.params.id);
 
@@ -378,7 +378,7 @@ const getRequest = async (req, res, next) => {
 // @desc    Delete request
 // @route   DELETE /api/requests/:id
 // @access  Private (Admin)
-const deleteRequest = async (req, res, next) => {
+exports.deleteRequest = async (req, res, next) => {
   try {
     const request = await Request.findById(req.params.id);
 
@@ -398,11 +398,4 @@ const deleteRequest = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
-
-module.exports = {
-  createRequest,
-  getRequests,
-  getRequest,
-  deleteRequest,
 };
